@@ -31,8 +31,8 @@ all : $(BENCHMARKPROG)
 $(BENCHMARKPROG) : $(COMMON_OBJS) $(COMMON_SHOC_OBJS)
 
 clean :
-	rm *.o
-	rm ../bin/Stencil2Dmain
+	rm *.o -f
+	rm ../bin/Stencil2Dmain -f
 
 # Individual targets
 

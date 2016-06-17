@@ -55,10 +55,11 @@
 #include "OptionParser.h"
 #include "ResultDatabase.h"
 
-#ifdef  __MIC__ || __MIC2__
-//#include <lmmintrin.h>
+// #ifdef  __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
+// #include <lmmintrin.h>
 #include <pthread.h>
-//#include <pthread_affinity_np.h>
+// #include <pthread_affinity_np.h>
 #endif
 
 

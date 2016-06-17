@@ -40,10 +40,11 @@
 #include "ResultDatabase.h"
 #include "OptionParser.h"
 
-#define MIC_THREADS 240
+#define MIC_THREADS 228
 // For heterogeneous features include "offload.h"
 #include "offload.h"
-#ifdef __MIC__ ||__MIC2__
+// #ifdef __MIC__ ||__MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 #include <immintrin.h>
 #endif
 
@@ -297,7 +298,8 @@ void RunBenchmark(OptionParser &op, ResultDatabase &resultDB)
 
 float __declspec(target(mic)) testICC_read(const int reps, const int eversion)
 {
-#ifdef __MIC__ || __MIC2__
+// #ifdef __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
 
@@ -353,7 +355,8 @@ float __declspec(target(mic)) testICC_read(const int reps, const int eversion)
 float __declspec(target(mic)) testIntrinsics_read(const int reps, 
         const int eversion)
 {
-#ifdef __MIC__ || __MIC2__
+// #ifdef __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
 
@@ -460,7 +463,8 @@ float __declspec(target(mic)) testIntrinsics_read(const int reps,
 float __declspec(target(mic)) testICC_write(const int reps, 
         const int eversion, const float value)
 {
-#ifdef __MIC__ || __MIC2__
+// #ifdef __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
 
@@ -517,7 +521,8 @@ float __declspec(target(mic)) testICC_write(const int reps,
 float __declspec(target(mic)) testIntrinsics_write(const int reps, 
         const int eversion, const float value)
 {
-#ifdef __MIC__ ||  __MIC2__
+// #ifdef __MIC__ ||  __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
 
@@ -597,7 +602,8 @@ float __declspec(target(mic)) testIntrinsics_write(const int reps,
 float __declspec(target(mic)) testICC_read_caches(const int reps, 
         const int eversion, const int worksize)
 {
-#ifdef __MIC__ ||  __MIC2__
+// #ifdef __MIC__ ||  __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
     numElements = worksize*4;
@@ -643,7 +649,8 @@ float __declspec(target(mic)) testICC_read_caches(const int reps,
 float __declspec(target(mic)) testICC_write_caches(const int reps, 
         const int eversion, const float value, const int worksize)
 {
-#ifdef __MIC__ ||  __MIC2__
+// #ifdef __MIC__ ||  __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
     size_t numElements;
     numElements = worksize*4;
 
@@ -680,7 +687,8 @@ float __declspec(target(mic)) testICC_write_caches(const int reps,
 float __declspec(target(mic)) testIntrinsics_read_caches(const int reps, 
         const int eversion, const int worksize)
 {
-#ifdef __MIC__ || __MIC2__
+// #ifdef __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
     numElements = worksize*4;
@@ -759,7 +767,8 @@ float __declspec(target(mic)) testIntrinsics_read_caches(const int reps,
 float __declspec(target(mic)) testIntrinsics_write_caches(const int reps, 
         const int eversion, const float value, const int worksize)
 {
-#ifdef __MIC__ || __MIC2__
+// #ifdef __MIC__ || __MIC2__
+#if defined(__MIC__) || defined(__MIC2__)
 
     size_t numElements;
     numElements = worksize*4;

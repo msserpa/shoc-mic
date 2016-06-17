@@ -10,7 +10,7 @@ BINDIR        = ./bin
 OBJDIR        = ./obj
 
 # Workload folders
-VPATH=$(SHOC_COMMON) level0 md reduction scan triad spmv sort fft gemm s3d mc
+VPATH=$(SHOC_COMMON) level0 md reduction scan triad spmv fft gemm s3d
 
 # Common objects
 COMMON_OBJS        = main.o Option.o OptionParser.o Timer.o ResultDatabase.o ProgressBar.o
@@ -37,13 +37,13 @@ BENCHMARKPROG = $(patsubst %.o,$(BINDIR)/%,$(BENCH_OBJS))
 MIC_MKL_LIBS     = -lmkl_core
 
 # Flags to enable compiler reporting - Modify according detail level needs
-REPORTING     = -opt-report-phase:offload -vec-report1
+REPORTING     = -qopt-report-phase:offload -qopt-report
 
 # Compiler flags
-CFLAGS           = -O3 -openmp -parallel -intel-extensions -I$(SHOC_COMMON) \
+CFLAGS           = -O3 -qopenmp -parallel -intel-extensions -I ~/intel/compilers_and_libraries_2016.3.210/linux/mkl/include/ -I$(SHOC_COMMON) \
                    -mP2OPT_hlo_pref_issue_second_level_prefetch=F           \
                    -mP2OPT_hlo_pref_issue_first_level_prefetch=F            \
-                   -offload-option,mic,compiler,"-mP2OPT_hpo_vec_check_dp_trip=F -fimf-precision=low -fimf-domain-exclusion=15" $(REPORTING)
+                   -qoffload-option,=mic,compiler,-mP2OPT_hpo_vec_check_dp_trip=F -fimf-precision=low -fimf-domain-exclusion=15 $(REPORTING)
 
 # Workload specific compiler flags
 STENCIL_CPPFLAGS =
@@ -63,9 +63,9 @@ all : $(BENCHMARKPROG)
 $(BENCHMARKPROG) : $(COMMON_OBJFILES)
 
 clean :
-	rm ./*.o
-	rm $(OBJDIR)/*
-	ls $(BINDIR)/* | grep -v runbench.sh | xargs rm
+	rm ./*.o -f
+	rm $(OBJDIR)/* -f
+	ls $(BINDIR)/* | grep -v runbench.sh | xargs rm -f
 	make -C ./stencil2d clean
 
 # Individual Targets
@@ -95,20 +95,10 @@ scan: $(BINDIR)/Scan
 
 $(BINDIR)/Scan : $(COMMON_OBJFILES)
 
-# Sort
-$(BINDIR)/Sort : $(COMMON_OBJFILES)
-
-sort: $(BINDIR)/Sort
-
 # S3D
 $(BINDIR)/S3D : $(COMMON_OBJFILES)
 
 s3d : $(BINDIR)/S3D
-
-$(BINDIR)/MC : $(COMMON_OBJS) ./mc/MonteCarlo.h
-
-mc : $(BINDIR)/MC
-
 
 # Stencil 2D
 stencil2d:

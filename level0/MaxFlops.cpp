@@ -211,7 +211,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
         }
         t = curr_second()-TH;
 
-        flopCount = (double)numFloats * 1 * realRepeats * 240 ;
+        flopCount = (double)numFloats * 1 * realRepeats * 228 ;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("Add1")+precision, sizeStr, "GFLOPS", gflop);
 
@@ -232,7 +232,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
         }
         t = curr_second()-TH;
 
-        flopCount = (double)numFloats * 2 * realRepeats * 120 ;
+        flopCount = (double)numFloats * 2 * realRepeats * 114 ;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("Add2")+precision, sizeStr, "GFLOPS", gflop);
         #pragma offload target(mic:micdev) out(hostMem:length(numFloats) alloc_if(0))
@@ -252,7 +252,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
         }
         t = curr_second()-TH;
 
-        flopCount = (double)numFloats *  4 * realRepeats * 60 ;
+        flopCount = (double)numFloats *  4 * realRepeats * 57 ;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("Add4")+precision, sizeStr, "GFLOPS", gflop);
         #pragma offload target(mic:micdev) out(hostMem:length(numFloats) alloc_if(0))
@@ -367,7 +367,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
         }
         t = curr_second()-TH;
 
-        flopCount = (double)numFloats * 2 * realRepeats * 240;
+        flopCount = (double)numFloats * 2 * realRepeats * 228;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("MAdd1")+precision, sizeStr, "GFLOPS", gflop);
         #pragma offload target(mic:micdev) out(hostMem:length(numFloats) alloc_if(0))
@@ -386,7 +386,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
             MAdd2_MIC<T>(numFloats,hostMem, realRepeats, 10.0, 0.9899);
         }
         t = curr_second()-TH;
-        flopCount = (double)numFloats * 2 * realRepeats * 120 * 2;
+        flopCount = (double)numFloats * 2 * realRepeats * 114 * 2;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("MAdd2")+precision, sizeStr, "GFLOPS", gflop);
         #pragma offload target(mic:micdev) out(hostMem:length(numFloats) alloc_if(0))
@@ -405,7 +405,7 @@ void RunTest(ResultDatabase &resultDB, const int npasses, const int verbose,
             MAdd4_MIC<T>(numFloats,hostMem, realRepeats, 10.0, 0.9899);
         }
         t = curr_second()-TH;
-        flopCount = (double)numFloats * 2 * realRepeats * 60 * 4;
+        flopCount = (double)numFloats * 2 * realRepeats * 57 * 4;
         gflop = flopCount / (double)(t*1e9);
         resultDB.AddResult(string("MAdd4")+precision, sizeStr, "GFLOPS", gflop);
         #pragma offload target(mic:micdev) out(hostMem:length(numFloats) alloc_if(0))

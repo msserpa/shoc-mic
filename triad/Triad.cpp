@@ -36,7 +36,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include<iostream>
+#include <iostream>
 
 #include "OptionParser.h"
 #include "ResultDatabase.h"
@@ -50,7 +50,7 @@ void addBenchmarkSpecOptions(OptionParser &op)
 __declspec(target(MIC)) void Triad(const float* A, const float* B, 
         float* C, const float s, const int start, const int length)
 {
-    int index = (int)((length/256) * 240);
+    int index = (int)((length/256) * 228);
 
     #pragma omp parallel for
     #pragma vector aligned
@@ -79,9 +79,9 @@ void RunBenchmark(OptionParser &op, ResultDatabase &resultDB)
     const int n_passes = op.getOptionInt("passes");
     const int micdev = op.getOptionInt("target");
 
-    const int nSizes = 9;
+    const int nSizes = 14;
     const size_t blockSizes[] = { 64, 128, 256, 512, 1024, 2048, 4096, 8192,
-        16384 };
+        16384, 32768, 65536, 131072, 262144, 524288, 1048576};
     const size_t memSize =  blockSizes[nSizes - 1];
     int  numMaxFloats = 1024 * memSize / sizeof(float);
     int  halfNumFloats = numMaxFloats / 2;
@@ -240,6 +240,13 @@ void RunBenchmark(OptionParser &op, ResultDatabase &resultDB)
                 / (time*1000.*1000.*1000.);
             resultDB.AddResult("TriadBdwth", sizeStr, "GB/s", bdwth);
             fflush(stdout);
+
+	    if(blockSizes[i] >= 1024 * 1024)
+                    fprintf(stderr, "%5d GB - %.5lf\n", blockSizes[i] / 1024 / 1024, time);
+	    if(blockSizes[i] >= 1024)
+		    fprintf(stderr, "%5d MB - %.5lf\n", blockSizes[i] / 1024, time);
+	    else
+                    fprintf(stderr, "%5d KB - %.5lf\n", blockSizes[i], time);
 
             if (verbose) cout << ">> checking memory\n";
             for (int j=0; j<halfNumFloats; ++j)
