@@ -152,7 +152,7 @@ __declspec(target(mic)) void Add1(const int num, T *data, const int nIters,
     for (int gid = 0; gid<num; gid++)
     {
         // Each macro op has 20 operations.
-        // Unroll 12 more times for 240 operations total.
+        // Unroll 12 more times for 228 operations total.
 
         __declspec(target(mic)) register T s = data[gid];
         for (int j=0 ; j<nIters ; ++j)
@@ -175,7 +175,7 @@ __declspec(target(mic)) void Add2(const int num, T *data, const int nIters,
         __declspec(target(mic)) register T s2 = (T)(10.0f)-s;
 
         // Each macro op has 20 operations.
-        // Unroll 6 more times for 120 operations total.
+        // Unroll 6 more times for 114 operations total.
 
 
         for (int j=0 ; j<nIters ; ++j)

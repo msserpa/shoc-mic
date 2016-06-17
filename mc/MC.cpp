@@ -240,7 +240,7 @@ void RunTest(string testName, ResultDatabase &resultDB, OptionParser &op)
 
     const int RAND_N = 1 << 18;
 
-    int numCores = 60; //Assuming 60 core Xeon Phi card
+    int numCores = 57; //Assuming 57 core Xeon Phi card
 
     // Number of grid points (specified in header file)
     const int probSizes[4] = { 16, 32, 40, 64 };

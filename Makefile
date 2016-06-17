@@ -37,10 +37,10 @@ BENCHMARKPROG = $(patsubst %.o,$(BINDIR)/%,$(BENCH_OBJS))
 MIC_MKL_LIBS     = -lmkl_core
 
 # Flags to enable compiler reporting - Modify according detail level needs
-REPORTING     = -opt-report-phase:offload -vec-report1
+REPORTING     = -qopt-report-phase:offload -qopt-report
 
 # Compiler flags
-CFLAGS           = -O3 -openmp -parallel -intel-extensions -I$(SHOC_COMMON) \
+CFLAGS           = -O3 -qopenmp -parallel -intel-extensions -I ~/intel/compilers_and_libraries_2016.3.210/linux/mkl/include/ -I$(SHOC_COMMON) \
                    -mP2OPT_hlo_pref_issue_second_level_prefetch=F           \
                    -mP2OPT_hlo_pref_issue_first_level_prefetch=F            \
                    -offload-option,mic,compiler,"-mP2OPT_hpo_vec_check_dp_trip=F -fimf-precision=low -fimf-domain-exclusion=15" $(REPORTING)
@@ -63,9 +63,9 @@ all : $(BENCHMARKPROG)
 $(BENCHMARKPROG) : $(COMMON_OBJFILES)
 
 clean :
-	rm ./*.o
-	rm $(OBJDIR)/*
-	ls $(BINDIR)/* | grep -v runbench.sh | xargs rm
+	rm ./*.o -f
+	rm $(OBJDIR)/* -f
+	ls $(BINDIR)/* | grep -v runbench.sh | xargs rm -f
 	make -C ./stencil2d clean
 
 # Individual Targets

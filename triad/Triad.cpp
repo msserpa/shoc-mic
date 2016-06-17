@@ -50,7 +50,7 @@ void addBenchmarkSpecOptions(OptionParser &op)
 __declspec(target(MIC)) void Triad(const float* A, const float* B, 
         float* C, const float s, const int start, const int length)
 {
-    int index = (int)((length/256) * 240);
+    int index = (int)((length/256) * 228);
 
     #pragma omp parallel for
     #pragma vector aligned

@@ -99,7 +99,8 @@ __attribute__((target(mic))) void MonteCarlo(real *h_CallResult,
     for(int block = 0; block < nblocks; ++block)
     {
 
-         getRngGaussian(VSL_METHOD_SGAUSSIAN_ICDF, Randomstream, BLOCKSIZE, random, (real)0.0f, (real)1.0f);
+          getRngGaussian(VSL_RNG_METHOD_GAUSSIAN_ICDF, Randomstream, BLOCKSIZE, random, (real)0.0f, (real)1.0f);
+//        getRngGaussian(VSL_METHOD_SGAUSSIAN_ICDF, Randomstream, BLOCKSIZE, random, (real)0.0f, (real)1.0f);
 //        vsRngGaussian (VSL_METHOD_SGAUSSIAN_ICDF, Randomstream, BLOCKSIZE, random, 0.0f, 1.0f);
 #pragma omp parallel for
     for(int opt = 0; opt < OPT_N; opt++)

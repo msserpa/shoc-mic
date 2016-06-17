@@ -67,7 +67,7 @@
 #define LINESIZE        64
 #define SIMD_SIZE       16
 #define PF2_THRESHOLD   36960
-#define NUM_THREADS     240
+#define NUM_THREADS     228
 #define ALLOC           alloc_if(1)
 #define REUSE           alloc_if(0)
 #define RETAIN          free_if(0)

@@ -40,7 +40,7 @@
 #include "ResultDatabase.h"
 #include "OptionParser.h"
 
-#define MIC_THREADS 240
+#define MIC_THREADS 228
 // For heterogeneous features include "offload.h"
 #include "offload.h"
 #ifdef __MIC__ ||__MIC2__

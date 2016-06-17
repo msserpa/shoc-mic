@@ -40,6 +40,7 @@
 #include <string>
 #include <vector>
 
+#include <unistd.h>
 #include "omp.h"
 #include "OptionParser.h"
 #include "ResultDatabase.h"
@@ -118,7 +119,7 @@ void RunTest(string testName, ResultDatabase &resultDB, OptionParser &op)
     int iters   = op.getOptionInt("iterations");
     int micdev  = op.getOptionInt("target");
 
-    int nThreads = 240; // Default
+    int nThreads = 228; // Default
 
     #pragma offload target(mic) inout(nThreads)
     {
