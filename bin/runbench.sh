@@ -45,6 +45,11 @@ echo "Running Triad";
 export MIC_OMP_NUM_THREADS=228
 ./Triad -s 4 &>triad.log
 
+echo "Running MonteCarlo";
+export MIC_OMP_NUM_THREADS=228
+OFFLOAD_INIT=on_start
+./MC -s 4 &>MC.log
+
 echo "Running MD";
 export MIC_OMP_NUM_THREADS=224
 export MIC_KMP_AFFINITY=compact
